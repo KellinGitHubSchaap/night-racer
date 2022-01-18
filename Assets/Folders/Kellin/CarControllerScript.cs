@@ -5,60 +5,82 @@ using UnityEngine;
 public class CarControllerScript : MonoBehaviour
 {
     [Header("References")]
-    public Transform m_carModel;
-    public Rigidbody m_sphere;
+    public Rigidbody m_sphereBody;      
 
     [Header("Movement")]
-    private float m_speed;
-    private float m_currentSpeed;
+    public float m_forwardAccel = 8f;       // Forward acceleration speed
+    public float m_reverseAccel = 4f;       // Backward acceleration speed
+    public float m_maxSpeed = 50f;          // Max speed of the car
 
-    private float m_rotate;
-    private float m_currentRotate;
+    public float m_rotateSpeed = 180f;      // Rotation speed of the car
 
-    public float m_acceleration = 30f;
-    public float m_steering = 80f;
-    public float m_gravity = 10f;
+    private float m_speedInput;        
+    private float m_rotationInput;
+
+    public float m_groundDrag = 3f;     // Drag when the car is on the ground
+    public float m_airDrag = 0.3f;      // Drag when the car is in the air
+
+    [Header("Ground Check")]
+    public float m_gravityForce = 10f;      // The gravity force to the car
+    public float m_checkGroundRayLength = 0.5f;     // Length of the ground Ray
+    public Transform m_groundRayPos;        // Position of the ground Ray detection
+    public LayerMask m_groundLayer;         // What layer is considered ground
+    private bool m_isGrounded;      // Is the car grounded
 
     private void Start()
     {
-        
+        m_sphereBody.transform.parent = null;       // Disconnect the Sphere Collider from the Car 
     }
 
     private void Update()
     {
-        transform.position = m_sphere.transform.position - new Vector3(0, .2f, 0);
-
-        if (Input.GetKey(KeyCode.W))
+        m_speedInput = 0f;
+        if (Input.GetAxis("Vertical") > 0)
         {
-            m_speed = m_acceleration;
+            m_speedInput = Input.GetAxis("Vertical") * m_forwardAccel * 1000f;
+        }
+        else if (Input.GetAxis("Vertical") < 0)
+        {
+            m_speedInput = Input.GetAxis("Vertical") * m_reverseAccel * 1000f;
         }
 
-        if(Input.GetAxis("Horizontal") != 0)
+        m_rotationInput = Input.GetAxis("Horizontal");
+
+        if (m_isGrounded)
         {
-            int dir = Input.GetAxis("Horizontal") > 0 ? 1 : -1;
-            float amount = Mathf.Abs((Input.GetAxis("Horizontal")));
-            Steer(dir, amount);
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, m_rotationInput * m_rotateSpeed * Time.deltaTime * Input.GetAxis("Vertical"), 0f));
         }
 
-        m_currentSpeed = Mathf.SmoothStep(m_currentSpeed, m_speed, Time.deltaTime * 12f);
-        m_speed = 0f;
-        m_currentRotate = Mathf.Lerp(m_currentRotate, m_rotate, Time.deltaTime * 4f);
-        m_rotate = 0f;
+        transform.position = m_sphereBody.transform.position;
     }
 
     private void FixedUpdate()
     {
-        m_sphere.AddForce(m_carModel.transform.forward * m_currentSpeed, ForceMode.Acceleration);
+        m_isGrounded = false;
 
-        m_sphere.AddForce(Vector3.down * m_gravity, ForceMode.Acceleration);
+        RaycastHit hit;
 
-        transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(0, transform.eulerAngles.y + m_currentRotate, 0), Time.deltaTime * 5);
+        if (Physics.Raycast(m_groundRayPos.position, -transform.up, out hit, m_checkGroundRayLength, m_groundLayer))
+        {
+            m_isGrounded = true;
+
+            transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+        }
+
+        if (m_isGrounded)
+        {
+            m_sphereBody.drag = m_groundDrag;
+
+            if (Mathf.Abs(m_speedInput) > 0)
+            {
+                m_sphereBody.AddForce(transform.forward * m_speedInput);
+            }
+        }
+        else
+        {
+            m_sphereBody.drag = m_airDrag;
+
+            m_sphereBody.AddForce(Vector3.up * -m_gravityForce * 100);
+        }
     }
-
-    public void Steer(int direction, float amount)
-    {
-        m_rotate = (m_steering * direction) * amount;
-    }
-
-
 }
