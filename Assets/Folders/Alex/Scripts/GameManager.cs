@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
                 float seconds = time % 60;
                 float fraction = (time * 100) % 100;
 
-                trialTimerText.text = string.Format("{0:00} : {1:00} : {2:000}", minutes, seconds, fraction);
+                trialTimerText.text = string.Format("{0:00} : {1:00} : {2:00}", minutes, seconds, fraction);
                 break;
             case GameState.Finish:
                 SaveTrialTime();
