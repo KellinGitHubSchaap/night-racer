@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
 
     [Tooltip("The state of the game")]
     [SerializeField] private GameState state;
+    [Tooltip("How many saves you can have")]
+    [SerializeField] private int maxAmountOfTrialSaves = 10;
     [Tooltip("The countdown timer text")]
     [SerializeField] private TextMeshProUGUI countdownTimerText;
     [Tooltip("How many seconds it takes before the race starts")]
@@ -24,6 +26,7 @@ public class GameManager : MonoBehaviour
 
     private float countdownTimer;
     private float time;
+    private int currentAmountOfTrialSaves;
 
     public GameState State { get { return state; } set { state = value; } }
 
@@ -31,6 +34,7 @@ public class GameManager : MonoBehaviour
     {
         //State = GameState.Menu;
         countdownTimer = countdownTime;
+        LoadTrialTimes();
     }
 
     private void Update()
@@ -49,9 +53,9 @@ public class GameManager : MonoBehaviour
 
                 time += Time.deltaTime;
 
-                float minutes = time / 60;
-                float seconds = time % 60;
-                float fraction = (time * 100) % 100;
+                float minutes = Mathf.FloorToInt(time / 60);
+                float seconds = Mathf.FloorToInt(time % 60);
+                float fraction = Mathf.FloorToInt((time * 100) % 100);
 
                 trialTimerText.text = string.Format("{0:00} : {1:00} : {2:00}", minutes, seconds, fraction);
                 break;
@@ -61,9 +65,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Save the current trial time
+    /// </summary>
     private void SaveTrialTime()
     {
         //PlayerPrefs.SetInt("Minutes",)
+    }
+
+    /// <summary>
+    /// Load the saved trial times
+    /// </summary>
+    private void LoadTrialTimes()
+    {
+
     }
 
     /// <summary>
