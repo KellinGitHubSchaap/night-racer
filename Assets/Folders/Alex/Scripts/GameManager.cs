@@ -98,6 +98,10 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("Minutes" + currentAmountOfTrialSaves, (int)minutes);
         PlayerPrefs.SetInt("Seconds" + currentAmountOfTrialSaves, (int)seconds);
         PlayerPrefs.SetInt("Fractions" + currentAmountOfTrialSaves, (int)fraction);
+
+        PlayerPrefs.SetInt("FastestMinutes", (int)minutes);
+        PlayerPrefs.SetInt("FastestSeconds", (int)seconds);
+        PlayerPrefs.SetInt("FastestFractions", (int)fraction);
     }
 
     /// <summary>
