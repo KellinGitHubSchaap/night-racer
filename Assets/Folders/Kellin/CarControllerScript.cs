@@ -15,29 +15,29 @@ public class CarControllerScript : MonoBehaviour
 
     public float m_accel;
 
-    public float m_rollOffStrength = 3f;      // How quick does the car lose speed when only rolling
+    public float m_rollOffStrength = 3f;                 // How quick does the car lose speed when only rolling
 
     [Tooltip("Rotation Speed of the car")]
     [SerializeField] private float m_mobility = 60f;      // Rotation speed of the car
     [Space(8, order = 1)]
-    public float m_minMobility = 30f;      // Minimal Rotation speed of the car
-    public float m_maxMobility = 90f;      // Maximum Rotation speed of the car
+    public float m_minMobility = 30f;                    // Minimal Rotation speed of the car
+    public float m_maxMobility = 90f;                    // Maximum Rotation speed of the car
 
     public float m_speedInput;
     private float m_rotationInput;
 
     private bool m_isDrifting = false;
-    public float m_driftRotation = 180f;   // Rotation when in drift mode 
+    public float m_driftRotation = 180f;            // Rotation when in drift mode 
 
-    public float m_groundDrag = 3f;     // Drag when the car is on the ground
-    public float m_airDrag = 0.3f;      // Drag when the car is in the air
+    public float m_groundDrag = 3f;                 // Drag when the car is on the ground
+    public float m_airDrag = 0.3f;                  // Drag when the car is in the air
 
     [Header("Ground Check")]
-    public float m_gravityForce = 10f;      // The gravity force to the car
+    public float m_gravityForce = 10f;              // The gravity force to the car
     public float m_checkGroundRayLength = 0.5f;     // Length of the ground Ray
-    public Transform m_groundRayPos;        // Position of the ground Ray detection
-    public LayerMask m_groundLayer;         // What layer is considered ground
-    private bool m_isGrounded;      // Is the car grounded
+    public Transform m_groundRayPos;                // Position of the ground Ray detection
+    public LayerMask m_groundLayer;                 // What layer is considered ground
+    private bool m_isGrounded;                      // Is the car grounded
 
     [Header("Car Parts")]
     public Transform m_frontWheelRight;
@@ -78,18 +78,7 @@ public class CarControllerScript : MonoBehaviour
             {
                 m_speedInput = 0;
             }
-        }
 
-        if(Input.GetAxis("Horizontal") > 0)
-        {
-            m_mobility += Input.GetAxis("Horizontal") * 2;
-        }
-        else if(Input.GetAxis("Horizontal") < 0)
-        {
-            m_mobility -= Input.GetAxis("Horizontal") * 2;
-        }
-        else
-        {
             m_mobility = Mathf.Lerp(m_mobility, m_minMobility, Time.deltaTime * 5);
 
             if (m_mobility < m_minMobility + 1)
@@ -98,13 +87,33 @@ public class CarControllerScript : MonoBehaviour
             }
         }
 
+        if (Input.GetAxis("Horizontal") > 0)
+        {
+            m_mobility += Input.GetAxis("Horizontal") * 2;
+        }
+        else if (Input.GetAxis("Horizontal") < 0)
+        {
+            m_mobility -= Input.GetAxis("Horizontal") * 2;
+        }
+        else
+        {
+            m_mobility = m_minMobility;
+        }
+
         m_rotationInput = Input.GetAxis("Horizontal");
 
-        m_accel = m_speedInput < 0 ? m_accelBoost : m_maxForwardAccel;      // Change accel based on the current SpeedInput of the car 
+        m_accel = m_speedInput < 0 ? m_accelBoost : m_maxForwardAccel;          // Change accel based on the current SpeedInput of the car 
 
-        m_speedInput = Mathf.Clamp(m_speedInput, -3000, 5000);
-        m_mobility = Mathf.Clamp(m_mobility, m_minMobility, m_maxMobility);
-
+        m_speedInput = Mathf.Clamp(m_speedInput, -3000, 5000);                  // Clamp the speed
+        
+        if (!m_isDrifting)
+        {
+            m_mobility = Mathf.Clamp(m_mobility, m_minMobility, m_maxMobility);     // Clamp the mobility
+        }
+        else
+        {
+            m_mobility = Mathf.Clamp(m_mobility, m_minMobility, m_driftRotation);
+        }
 
         // Car gets higher mobility when in Drift mode
         if (Input.GetKeyDown(KeyCode.Space))
@@ -118,20 +127,16 @@ public class CarControllerScript : MonoBehaviour
             m_isDrifting = false;
         }
 
-
-
         if (IsCarGrounded())
         {
-
             if (m_speedInput > 0)
             {
                 transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, m_rotationInput * m_mobility * Time.deltaTime * 1, 0f));
             }
-            else if(m_speedInput < 0)
+            else if (m_speedInput < 0)
             {
                 transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, m_rotationInput * m_mobility * Time.deltaTime * -1, 0f));
             }
-
 
             // If the car is drifting turn the frontwheels
             if (!m_isDrifting)
