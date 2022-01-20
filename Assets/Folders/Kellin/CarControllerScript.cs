@@ -5,7 +5,9 @@ using UnityEngine;
 public class CarControllerScript : MonoBehaviour
 {
     [Header("References")]
-    public Rigidbody m_sphereBody;      
+    public Rigidbody m_sphereBody;
+
+    private float m_offsetToCenterSphere = -.18f;
 
     [Header("Movement")]
     public float m_forwardAccel = 8f;       // Forward acceleration speed
@@ -28,6 +30,15 @@ public class CarControllerScript : MonoBehaviour
     public Transform m_groundRayPos;        // Position of the ground Ray detection
     public LayerMask m_groundLayer;         // What layer is considered ground
     private bool m_isGrounded;      // Is the car grounded
+
+    [Header("Car Parts")]
+    public Transform m_frontWheelRight;
+    public Transform m_backWheelRight;
+    public Transform m_frontWheelLeft;
+    public Transform m_backWheelLeft;
+
+    public float m_maxWheelRotation = 25f;
+
 
     private void Start()
     {
@@ -60,9 +71,12 @@ public class CarControllerScript : MonoBehaviour
         if (IsCarGrounded())
         {
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, m_rotationInput * m_mobility * Time.deltaTime * Input.GetAxis("Vertical"), 0f));
+
+            m_frontWheelLeft.localEulerAngles = new Vector3(0, (Input.GetAxis("Horizontal") * m_maxWheelRotation), m_frontWheelLeft.localEulerAngles.z);
+            m_frontWheelRight.localEulerAngles = new Vector3(0, (Input.GetAxis("Horizontal") * m_maxWheelRotation), m_frontWheelRight.localEulerAngles.z);
         }
 
-        transform.position = m_sphereBody.transform.position;
+        transform.position = new Vector3(m_sphereBody.transform.position.x, m_sphereBody.transform.position.y + m_offsetToCenterSphere, m_sphereBody.transform.position.z);
     }
 
     private void FixedUpdate()
