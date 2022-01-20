@@ -11,6 +11,9 @@ public class SpeedMeter : MonoBehaviour
     [SerializeField] private float ZeroSpeedAngle = 220;
 
     private CarControllerScript carController;
+    public Rigidbody rb;
+
+    float kmp;
 
     private void Start()
     {
@@ -19,11 +22,18 @@ public class SpeedMeter : MonoBehaviour
 
     private void Update()
     {
-        
+        needleTransform.eulerAngles = new Vector3(0, 0, GetSpeedRotation());
+
+        kmp = rb.velocity.magnitude * 3.6f;
+        Debug.Log(kmp);
     }
 
-    //private float GetSpeedRotation()
-    //{
-    //    //float speed = carController.m_speedInput / 
-    //}
+    private float GetSpeedRotation()
+    {
+        float totalAngle = ZeroSpeedAngle - MaxSpeedAngle;
+
+        float speed = carController.m_speedInput / 5000;
+
+        return ZeroSpeedAngle - speed * totalAngle;
+    }
 }
