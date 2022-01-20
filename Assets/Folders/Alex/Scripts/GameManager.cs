@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
         //State = GameState.Menu;
         countdownTimer = countdownTime;
 
+        //PlayerPrefs.DeleteAll();
         if (PlayerPrefs.GetInt("AmountOfSaves") > 0)
             LoadTrialTimes();
     }
@@ -69,7 +70,6 @@ public class GameManager : MonoBehaviour
                 fraction = Mathf.FloorToInt((time * 100) % 100);
 
                 trialTimerText.text = string.Format("{0:00} : {1:00} : {2:00}", minutes, seconds, fraction);
-                fastestTrialTimerText.text = string.Format("{0:00} : {1:00} : {2:00}", minutes, seconds, fraction);
                 break;
             case GameState.Finish:
                 break;
@@ -85,6 +85,8 @@ public class GameManager : MonoBehaviour
         {
             currentAmountOfTrialSaves++;
             SaveTrialTime();
+            CheckFastestTime();
+            //if(PlayerPrefs.)
             State = GameState.Finish;
         }
     }
@@ -98,10 +100,6 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("Minutes" + currentAmountOfTrialSaves, (int)minutes);
         PlayerPrefs.SetInt("Seconds" + currentAmountOfTrialSaves, (int)seconds);
         PlayerPrefs.SetInt("Fractions" + currentAmountOfTrialSaves, (int)fraction);
-
-        PlayerPrefs.SetInt("FastestMinutes", (int)minutes);
-        PlayerPrefs.SetInt("FastestSeconds", (int)seconds);
-        PlayerPrefs.SetInt("FastestFractions", (int)fraction);
     }
 
     /// <summary>
@@ -110,6 +108,8 @@ public class GameManager : MonoBehaviour
     private void LoadTrialTimes()
     {
         currentAmountOfTrialSaves = PlayerPrefs.GetInt("AmountOfSaves");
+
+        UpdateFastestTimeAndScore();
 
         for (int i = 1; i <= currentAmountOfTrialSaves; i++)
         {
@@ -122,6 +122,20 @@ public class GameManager : MonoBehaviour
 
             TrialInfo trialInfo = info.GetComponent<TrialInfo>();
             trialInfo.trialTimeText.text = string.Format("{0:00} : {1:00} : {2:00}", minutes, seconds, fraction);
+        }
+    }
+
+    /// <summary>
+    /// Checks if current trial time is less then fastest trial time
+    /// </summary>
+    private void CheckFastestTime()
+    {
+        if (minutes <= PlayerPrefs.GetInt("FastestMinutes") &&
+            seconds <= PlayerPrefs.GetInt("FastestSeconds") &&
+            fraction <= PlayerPrefs.GetInt("FastestFractions"))
+        {
+            SaveFastestTimeAndHighScore();
+            UpdateFastestTimeAndScore();
         }
     }
 
@@ -147,5 +161,26 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         countdownTimerText.gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// Call this to save the new fastest time and highscore
+    /// </summary>
+    private void SaveFastestTimeAndHighScore()
+    {
+        PlayerPrefs.SetInt("FastestMinutes", (int)minutes);
+        PlayerPrefs.SetInt("FastestSeconds", (int)seconds);
+        PlayerPrefs.SetInt("FastestFractions", (int)fraction);
+    }
+
+    /// <summary>
+    /// Call this to update the fastest time and highscore
+    /// </summary>
+    private void UpdateFastestTimeAndScore()
+    {
+        float fastestMinutes = PlayerPrefs.GetInt("FastestMinutes");
+        float fastestSeconds = PlayerPrefs.GetInt("FastestSeconds");
+        float fastestFraction = PlayerPrefs.GetInt("FastestFractions");
+        fastestTrialTimerText.text = string.Format("{0:00} : {1:00} : {2:00}", fastestMinutes, fastestSeconds, fastestFraction);
     }
 }

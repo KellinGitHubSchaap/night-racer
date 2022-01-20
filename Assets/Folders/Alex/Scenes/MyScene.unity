@@ -1120,6 +1120,7 @@ MonoBehaviour:
   countdownTimerText: {fileID: 286671288}
   countdownTime: 3
   trialTimerText: {fileID: 458519093}
+  fastestTrialTimerText: {fileID: 18604879}
 --- !u!4 &993737775
 Transform:
   m_ObjectHideFlags: 0
