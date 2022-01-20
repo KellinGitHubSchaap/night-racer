@@ -621,10 +621,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_sphereBody: {fileID: 3128786946172247136}
-  m_forwardAccel: 5
+  m_accelBoost: 5
+  m_maxForwardAccel: 2
   m_reverseAccel: 2
+  m_accel: 0
+  m_brakeStrength: 3
   m_minMobility: 60
   m_maxMobility: 180
+  m_speedInput: 0
   m_groundDrag: 3
   m_airDrag: 0.3
   m_gravityForce: 10
@@ -637,7 +641,8 @@ MonoBehaviour:
   m_backWheelRight: {fileID: 2042309823156795093}
   m_frontWheelLeft: {fileID: 8006056191570227834}
   m_backWheelLeft: {fileID: 5472938663570036044}
-  m_maxWheelRotation: 25
+  m_minWheelRotation: 15
+  m_maxWheelRotation: 35
 --- !u!1 &4877168776664422754
 GameObject:
   m_ObjectHideFlags: 0

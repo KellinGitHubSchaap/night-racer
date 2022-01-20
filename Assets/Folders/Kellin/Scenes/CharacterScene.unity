@@ -1214,8 +1214,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3128786947533169696, guid: 563a210e44213b84aba15a2c6cda4eb4, type: 3}
-      propertyPath: m_maxWheelRotation
-      value: 35
+      propertyPath: m_brakeStrength
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3128786947533169697, guid: 563a210e44213b84aba15a2c6cda4eb4, type: 3}
       propertyPath: m_RootOrder
