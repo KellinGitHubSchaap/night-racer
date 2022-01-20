@@ -86,7 +86,11 @@ public class GameManager : MonoBehaviour
             currentAmountOfTrialSaves++;
             SaveTrialTime();
             CheckFastestTime();
-            //if(PlayerPrefs.)
+            if(currentAmountOfTrialSaves == 1)
+            {
+                SaveFastestTimeAndHighScore();
+                UpdateFastestTimeAndScore();
+            }
             State = GameState.Finish;
         }
     }
