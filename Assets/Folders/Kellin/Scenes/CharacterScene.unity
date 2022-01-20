@@ -345,7 +345,7 @@ MonoBehaviour:
   m_sphereBody: {fileID: 1961327315}
   m_forwardAccel: 5
   m_reverseAccel: 2
-  m_rotateSpeed: 110
+  m_mobility: 60
   m_groundDrag: 3
   m_airDrag: 0.3
   m_gravityForce: 10
