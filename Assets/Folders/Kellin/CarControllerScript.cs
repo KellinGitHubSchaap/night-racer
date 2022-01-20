@@ -10,7 +10,6 @@ public class CarControllerScript : MonoBehaviour
     [Header("Movement")]
     public float m_forwardAccel = 8f;       // Forward acceleration speed
     public float m_reverseAccel = 4f;       // Backward acceleration speed
-    public float m_maxSpeed = 50f;          // Max speed of the car
 
     public float m_rotateSpeed = 180f;      // Rotation speed of the car
 
