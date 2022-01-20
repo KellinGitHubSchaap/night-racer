@@ -7,8 +7,6 @@ public class CarControllerScript : MonoBehaviour
     [Header("References")]
     public Rigidbody m_sphereBody;
 
-    private float m_offsetToCenterSphere = -.18f;
-
     [Header("Movement")]
     public float m_forwardAccel = 8f;       // Forward acceleration speed
     public float m_reverseAccel = 4f;       // Backward acceleration speed
@@ -20,6 +18,8 @@ public class CarControllerScript : MonoBehaviour
 
     private float m_speedInput;        
     private float m_rotationInput;
+
+    private bool m_isDrifting = false;
 
     public float m_groundDrag = 3f;     // Drag when the car is on the ground
     public float m_airDrag = 0.3f;      // Drag when the car is in the air
@@ -37,8 +37,11 @@ public class CarControllerScript : MonoBehaviour
     public Transform m_frontWheelLeft;
     public Transform m_backWheelLeft;
 
-    public float m_maxWheelRotation = 25f;
+    public float m_minWheelRotation = 15f;      // If the car isn't drifting a less sharp tire angle is needed
+    public float m_maxWheelRotation = 25f;      // If the car is drifting a sharper tire angle is needed
 
+    [Header("Other Settings")]
+    private float m_offsetToCenterSphere = -.18f;
 
     private void Start()
     {
@@ -50,11 +53,11 @@ public class CarControllerScript : MonoBehaviour
         m_speedInput = 0f;
         if (Input.GetAxis("Vertical") > 0)
         {
-            m_speedInput = Input.GetAxis("Vertical") * m_forwardAccel * 1000f;
+            m_speedInput += Input.GetAxis("Vertical") * m_forwardAccel * 100f;
         }
         else if (Input.GetAxis("Vertical") < 0)
         {
-            m_speedInput = Input.GetAxis("Vertical") * m_reverseAccel * 1000f;
+            m_speedInput += Input.GetAxis("Vertical") * m_reverseAccel * 100f;
         }
 
         m_rotationInput = Input.GetAxis("Horizontal");
@@ -62,18 +65,29 @@ public class CarControllerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             m_mobility = 130;
+            m_isDrifting = true;
         }
         else if(Input.GetKeyUp(KeyCode.Space))
         {
             m_mobility = 60;
+            m_isDrifting = false;
         }
 
         if (IsCarGrounded())
         {
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, m_rotationInput * m_mobility * Time.deltaTime * Input.GetAxis("Vertical"), 0f));
 
-            m_frontWheelLeft.localEulerAngles = new Vector3(0, (Input.GetAxis("Horizontal") * m_maxWheelRotation), m_frontWheelLeft.localEulerAngles.z);
-            m_frontWheelRight.localEulerAngles = new Vector3(0, (Input.GetAxis("Horizontal") * m_maxWheelRotation), m_frontWheelRight.localEulerAngles.z);
+            if (!m_isDrifting)
+            {
+                m_frontWheelLeft.localEulerAngles = new Vector3(0, (Input.GetAxis("Horizontal") * m_minWheelRotation), m_frontWheelLeft.localEulerAngles.z);
+                m_frontWheelRight.localEulerAngles = new Vector3(0, (Input.GetAxis("Horizontal") * m_minWheelRotation), m_frontWheelRight.localEulerAngles.z);
+            }
+            else
+            {
+                m_frontWheelLeft.localEulerAngles = new Vector3(0, (Input.GetAxis("Horizontal") * m_maxWheelRotation), m_frontWheelLeft.localEulerAngles.z);
+                m_frontWheelRight.localEulerAngles = new Vector3(0, (Input.GetAxis("Horizontal") * m_maxWheelRotation), m_frontWheelRight.localEulerAngles.z);
+            }
+            
         }
 
         transform.position = new Vector3(m_sphereBody.transform.position.x, m_sphereBody.transform.position.y + m_offsetToCenterSphere, m_sphereBody.transform.position.z);
@@ -96,11 +110,6 @@ public class CarControllerScript : MonoBehaviour
 
             m_sphereBody.AddForce(Vector3.up * -m_gravityForce * 100);
         }
-    }
-
-    public void Steering(int direction, float amount) 
-    {
-
     }
 
     // Is Car Grounded will check if the groundRay is hitting a ground layer, if true return a true for m_isGrounded 
