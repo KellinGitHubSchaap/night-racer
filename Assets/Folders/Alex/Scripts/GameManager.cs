@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     [Tooltip("The fastest trial timer text")]
     [SerializeField] private TextMeshProUGUI fastestTrialTimerText;
 
+    public static GameManager instance;
+
     private float countdownTimer;
     private float time;
     private int currentAmountOfTrialSaves;
@@ -38,6 +40,17 @@ public class GameManager : MonoBehaviour
     private float fraction;
 
     public GameState State { get { return state; } set { state = value; } }
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            instance = this;
+        }
+        else
+            Destroy(gameObject);
+    }
 
     private void Start()
     {
@@ -72,6 +85,8 @@ public class GameManager : MonoBehaviour
                 trialTimerText.text = string.Format("{0:00} : {1:00} : {2:00}", minutes, seconds, fraction);
                 break;
             case GameState.Finish:
+                InterfaceManager.instance.ShowWinMenu();
+                State = GameState.Menu;
                 break;
         }
     }
@@ -86,7 +101,7 @@ public class GameManager : MonoBehaviour
             currentAmountOfTrialSaves++;
             SaveTrialTime();
             CheckFastestTime();
-            if(currentAmountOfTrialSaves == 1)
+            if (currentAmountOfTrialSaves == 1)
             {
                 SaveFastestTimeAndHighScore();
                 UpdateFastestTimeAndScore();
