@@ -41,6 +41,12 @@ public class GameManager : MonoBehaviour
 
     public GameState State { get { return state; } set { state = value; } }
 
+    [Header("Checkpoint Settings")]
+    public GameObject m_checkPointHolder;
+    public List<GameObject> m_checkPoints = new List<GameObject>();
+    public GameObject m_previousCheckPoint;
+    public GameObject m_currentCheckPoint;
+
     private void Awake()
     {
         if (instance == null)
@@ -60,6 +66,13 @@ public class GameManager : MonoBehaviour
         //PlayerPrefs.DeleteAll();
         if (PlayerPrefs.GetInt("AmountOfSaves") > 0)
             LoadTrialTimes();
+
+        // Get All checkpoints
+        for (int i = 0; i < m_checkPointHolder.transform.childCount; i++)
+        {
+            m_checkPoints.Add(m_checkPointHolder.transform.GetChild(i).gameObject);
+        }
+
     }
 
     private void Update()
@@ -202,4 +215,20 @@ public class GameManager : MonoBehaviour
         float fastestFraction = PlayerPrefs.GetInt("FastestFractions");
         fastestTrialTimerText.text = string.Format("{0:00} : {1:00} : {2:00}", fastestMinutes, fastestSeconds, fastestFraction);
     }
+
+    public void StoreCurrentCheckPoint(GameObject checkPointPos)
+    {
+        if (m_checkPoints.Contains(checkPointPos))
+        {
+            Debug.Log("Checkpoint Set");
+            m_currentCheckPoint = checkPointPos;
+        }
+        else
+        {
+            Debug.Log("Error in Sending Checkpoint");
+        }
+    }
+
+
+
 }
