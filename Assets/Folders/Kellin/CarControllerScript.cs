@@ -47,7 +47,7 @@ public class CarControllerScript : MonoBehaviour
     public float m_maxWheelRotation = 25f;      // If the car is drifting a sharper tire angle is needed
 
     [Header("Other Settings")]
-    private float m_offsetToCenterSphere = -.18f;
+    private float m_offsetToCenterSphere = -.2f;
 
     private void Start()
     {
