@@ -48,6 +48,24 @@ public class InterfaceManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Call this to enable or disable a menu
+    /// </summary>
+    /// <param name="menu"></param>
+    /// <param name="value"></param>
+    public void EnableDisableMenu(GameObject menu, bool value)
+    {
+        menu.SetActive(value);
+    }
+
+    /// <summary>
+    /// Enable the win menu
+    /// </summary>
+    public void ShowWinMenu()
+    {
+        winMenu.SetActive(true);
+    }
+
+    /// <summary>
     /// Start the game over coroutine
     /// </summary>
     public void ShowGameOver()
