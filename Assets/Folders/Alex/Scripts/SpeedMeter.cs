@@ -24,15 +24,16 @@ public class SpeedMeter : MonoBehaviour
     {
         needleTransform.eulerAngles = new Vector3(0, 0, GetSpeedRotation());
 
-        kmp = rb.velocity.magnitude * 3.6f;
-        Debug.Log(kmp);
+        kmp = Mathf.FloorToInt(rb.velocity.magnitude * 3.6f);
+        speedoMeterText.text = string.Format("{000}", kmp);
     }
 
     private float GetSpeedRotation()
     {
         float totalAngle = ZeroSpeedAngle - MaxSpeedAngle;
 
-        float speed = carController.m_speedInput / 5000;
+        //float speed = rb.velocity.magnitude * 3.6f;
+        float speed = carController.m_speedInput / (carController.maxSpeed * 67.629750f) / 1.03f;
 
         return ZeroSpeedAngle - speed * totalAngle;
     }
