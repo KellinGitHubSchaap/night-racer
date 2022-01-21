@@ -5,10 +5,11 @@ using UnityEngine;
 public class CheckPointScript : MonoBehaviour
 {
     public int m_checkPointID;
-    
+    private GameManager m_gameRef;
 
     private void Start()
     {
+        m_gameRef = FindObjectOfType<GameManager>();
     }
 
     private void Update()
@@ -21,8 +22,7 @@ public class CheckPointScript : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             print("Goodbye Moon");
-            CarControllerScript carScript = other.GetComponent<CarControllerScript>();
-            
+            m_gameRef.StoreCurrentCheckPoint(this.gameObject);
         }
     }
 }
