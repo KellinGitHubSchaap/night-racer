@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     private float minutes;
     private float seconds;
     private float fraction;
+    private bool IsCountingDown;
 
     public GameState State { get { return state; } set { state = value; } }
 
@@ -68,11 +69,13 @@ public class GameManager : MonoBehaviour
             LoadTrialTimes();
 
         // Get All checkpoints
-        for (int i = 0; i < m_checkPointHolder.transform.childCount; i++)
+        if (m_checkPointHolder != null)
         {
-            m_checkPoints.Add(m_checkPointHolder.transform.GetChild(i).gameObject);
+            for (int i = 0; i < m_checkPointHolder.transform.childCount; i++)
+            {
+                m_checkPoints.Add(m_checkPointHolder.transform.GetChild(i).gameObject);
+            }
         }
-
     }
 
     private void Update()
@@ -83,6 +86,9 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Start:
                 if (Input.GetKeyDown(KeyCode.B))
+                    StartCoroutine(CountdownStart());
+
+                if (!IsCountingDown)
                     StartCoroutine(CountdownStart());
                 break;
             case GameState.Race:
@@ -99,7 +105,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Finish:
                 InterfaceManager.instance.ShowWinMenu();
-                State = GameState.Menu;
+                FinishedRace();
                 break;
         }
     }
@@ -109,6 +115,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void FinishedRace()
     {
+        State = GameState.Finish;
+
         if (currentAmountOfTrialSaves < maxAmountOfTrialSaves)
         {
             currentAmountOfTrialSaves++;
@@ -119,7 +127,6 @@ public class GameManager : MonoBehaviour
                 SaveFastestTimeAndHighScore();
                 UpdateFastestTimeAndScore();
             }
-            State = GameState.Finish;
         }
     }
 
@@ -177,6 +184,8 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator CountdownStart()
     {
+        IsCountingDown = true;
+
         while (countdownTimer > 0)
         {
             countdownTimerText.text = countdownTimer.ToString();
@@ -229,6 +238,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
+    public void SetGameState(int state)
+    {
+        State = (GameState)state;
+    }
 
 }

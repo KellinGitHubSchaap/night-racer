@@ -18,22 +18,19 @@ public class InterfaceManager : MonoBehaviour
     [Tooltip("Menu's to deactivate")]
     [SerializeField] private GameObject[] menus;
 
+    //[Header("TrialTime")]
+
+
     [Header("Fade")]
     [Tooltip("The fade panel")]
     [SerializeField] private Image fadeImage;
     [Tooltip("How long the fading takes")]
     [SerializeField] private float fadeDuration = 3;
 
-    [Header("Other")]
-    [SerializeField] private Animator anim;
-
     private void Awake()
     {
         if (instance == null)
             instance = this;
-
-        if (winMenu)
-            anim = winMenu.GetComponent<Animator>();
     }
 
     /// <summary>
