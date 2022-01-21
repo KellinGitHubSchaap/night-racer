@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4515969751431012173}
   - component: {fileID: 4515969751431012172}
   - component: {fileID: 4515969751431012168}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4515969751431012175}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -111,3 +111,6 @@ MonoBehaviour:
   score: 250
   destroyedVersion: {fileID: 5494899641998345550, guid: ba2142aeae696e841918876da53acb18, type: 3}
   breakSpeed: 20
+  destructibleLayer:
+    serializedVersion: 2
+    m_Bits: 2048
