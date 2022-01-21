@@ -8,6 +8,8 @@ public class CarControllerScript : MonoBehaviour
     public Rigidbody m_sphereBody;
 
     [Header("Movement")]
+    public float maxSpeed = 130;           //How fast the car goes in kmp
+    public float reverseSpeed = 60;           //How fast the car goes backwards in kmp
 
     public float m_accelBoost = 3;          // If the speed < 0 we want to get back to driving forward really quick
     public float m_maxForwardAccel = 1;     // Forward acceleration speed
@@ -47,7 +49,7 @@ public class CarControllerScript : MonoBehaviour
     public float m_maxWheelRotation = 25f;      // If the car is drifting a sharper tire angle is needed
 
     [Header("Other Settings")]
-    private float m_offsetToCenterSphere = -.18f;
+    private float m_offsetToCenterSphere = -.2f;
 
     private void Start()
     {
@@ -104,7 +106,7 @@ public class CarControllerScript : MonoBehaviour
 
         m_accel = m_speedInput < 0 ? m_accelBoost : m_maxForwardAccel;          // Change accel based on the current SpeedInput of the car 
 
-        m_speedInput = Mathf.Clamp(m_speedInput, -3000, 5000);                  // Clamp the speed
+        m_speedInput = Mathf.Clamp(m_speedInput, (-reverseSpeed * 67.629750f) / 1.03f, (maxSpeed * 67.629750f) / 1.03f);                  // Clamp the speed  //1kmp 67,629750
         
         if (!m_isDrifting)
         {
