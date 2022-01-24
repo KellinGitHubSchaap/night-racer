@@ -18,8 +18,15 @@ public class InterfaceManager : MonoBehaviour
     [Tooltip("Menu's to deactivate")]
     [SerializeField] private GameObject[] menus;
 
-    //[Header("TrialTime")]
-
+    [Header("TrialTime")]
+    [Tooltip("Where the trialinfo's are placed")]
+    [SerializeField] private Transform generalTransform;
+    [Tooltip("The countdown timer text")]
+    [SerializeField] private TextMeshProUGUI countdownTimerText;
+    [Tooltip("The trial timer text")]
+    [SerializeField] private TextMeshProUGUI trialTimerText;
+    [Tooltip("The fastest trial timer text")]
+    [SerializeField] private TextMeshProUGUI fastestTrialTimerText;
 
     [Header("Fade")]
     [Tooltip("The fade panel")]

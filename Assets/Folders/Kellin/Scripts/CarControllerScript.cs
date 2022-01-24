@@ -28,7 +28,7 @@ public class CarControllerScript : MonoBehaviour
     public float m_speedInput;
     private float m_rotationInput;
 
-    private bool m_isDrifting = false;
+    public bool m_isDrifting = false;
     public float m_driftRotation = 180f;            // Rotation when in drift mode 
 
     public float m_groundDrag = 3f;                 // Drag when the car is on the ground

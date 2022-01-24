@@ -242,5 +242,4 @@ public class GameManager : MonoBehaviour
     {
         State = (GameState)state;
     }
-
 }
