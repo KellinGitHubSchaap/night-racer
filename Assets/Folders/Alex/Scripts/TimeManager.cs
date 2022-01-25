@@ -37,7 +37,7 @@ public class TimeManager : MonoBehaviour
             seconds = Mathf.FloorToInt(time % 60);
             fraction = Mathf.FloorToInt((time * 100) % 100);
 
-            //trialTimerText.text = string.Format("{0:00} : {1:00} : {2:00}", minutes, seconds, fraction);
+            interFace.trialTimerText.text = string.Format("{0:00} : {1:00} : {2:00}", minutes, seconds, fraction);
         }
 
         if (gameManager.State == GameManager.GameState.Start)
