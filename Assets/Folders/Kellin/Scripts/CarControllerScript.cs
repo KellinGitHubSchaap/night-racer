@@ -167,6 +167,7 @@ public class CarControllerScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
+            m_sphereBody.velocity = Vector3.zero;
             m_sphereBody.transform.position = new Vector3(GameManager.instance.m_currentCheckPoint.transform.position.x, GameManager.instance.m_currentCheckPoint.transform.position.y + 2, GameManager.instance.m_currentCheckPoint.transform.position.z);
             transform.eulerAngles = GameManager.instance.m_currentCheckPoint.transform.eulerAngles;
         }

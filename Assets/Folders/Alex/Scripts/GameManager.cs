@@ -234,7 +234,7 @@ public class GameManager : MonoBehaviour
         {
             m_previousCheckPoint = m_currentCheckPoint;
 
-            if (checkPointPos != m_previousCheckPoint && ID > m_previousCheckPointID)    // If the checkPoint triggered isn't the same as the previous one you are allowed to store it.
+            if (checkPointPos != m_previousCheckPoint && ID > m_previousCheckPointID || m_currentCheckPoint == null)    // If the checkPoint triggered isn't the same as the previous one you are allowed to store it.
             {
                 m_currentCheckPoint = checkPointPos;
                 m_previousCheckPointID = ID;
