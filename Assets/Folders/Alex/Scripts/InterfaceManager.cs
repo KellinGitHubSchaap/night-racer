@@ -20,13 +20,13 @@ public class InterfaceManager : MonoBehaviour
 
     [Header("TrialTime")]
     [Tooltip("Where the trialinfo's are placed")]
-    [SerializeField] private Transform generalTransform;
+    public Transform generalTransform;
     [Tooltip("The countdown timer text")]
-    [SerializeField] private TextMeshProUGUI countdownTimerText;
+    public TextMeshProUGUI countdownTimerText;
     [Tooltip("The trial timer text")]
-    [SerializeField] private TextMeshProUGUI trialTimerText;
+    public TextMeshProUGUI trialTimerText;
     [Tooltip("The fastest trial timer text")]
-    [SerializeField] private TextMeshProUGUI fastestTrialTimerText;
+    public TextMeshProUGUI fastestTrialTimerText;
 
     [Header("Fade")]
     [Tooltip("The fade panel")]
@@ -134,12 +134,6 @@ public class InterfaceManager : MonoBehaviour
         fadeImage.CrossFadeAlpha(alphaTarget, 0, true);
         fadeImage.CrossFadeAlpha(alphaValue, duration, true);
     }
-
-    #endregion
-
-    #region TimeTrial
-
-
 
     #endregion
 }
