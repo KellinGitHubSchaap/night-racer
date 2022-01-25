@@ -54,6 +54,8 @@ public class CarControllerScript : MonoBehaviour
     public float m_minBanking = 5f;        // How much does the car bank to the side when not drifting
     public float m_maxBanking = 10f;        // How much does the car bank to the side when drifting
 
+    public float m_restoreRotationSpeed = 50f;
+
     [Header("Other Settings")]
     private float m_offsetToCenterSphere = -.2f;
 
@@ -163,6 +165,12 @@ public class CarControllerScript : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            m_sphereBody.transform.position = new Vector3(GameManager.instance.m_currentCheckPoint.transform.position.x, GameManager.instance.m_currentCheckPoint.transform.position.y + 2, GameManager.instance.m_currentCheckPoint.transform.position.z);
+            transform.eulerAngles = GameManager.instance.m_currentCheckPoint.transform.eulerAngles;
+        }
+
         transform.position = new Vector3(m_sphereBody.transform.position.x, m_sphereBody.transform.position.y + m_offsetToCenterSphere, m_sphereBody.transform.position.z);
     }
 
@@ -181,6 +189,14 @@ public class CarControllerScript : MonoBehaviour
         {
             m_sphereBody.drag = m_airDrag;
             m_sphereBody.AddForce(Vector3.up * -m_gravityForce * 100);
+
+            if (transform.localEulerAngles.x != 0)
+            {
+                float xRotation = transform.localEulerAngles.x;
+                xRotation += m_restoreRotationSpeed * Time.deltaTime;
+
+                transform.localEulerAngles = new Vector3(xRotation, transform.localEulerAngles.y, 0);
+            }
         }
     }
 

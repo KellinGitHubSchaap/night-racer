@@ -12,17 +12,12 @@ public class CheckPointScript : MonoBehaviour
         m_gameRef = FindObjectOfType<GameManager>();
     }
 
-    private void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             print("Goodbye Moon");
-            m_gameRef.StoreCurrentCheckPoint(this.gameObject);
+            m_gameRef.StoreCurrentCheckPoint(this.gameObject, m_checkPointID);
         }
     }
 }
