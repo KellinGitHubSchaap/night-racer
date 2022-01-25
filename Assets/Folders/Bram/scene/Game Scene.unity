@@ -2250,6 +2250,10 @@ MonoBehaviour:
   winMenu: {fileID: 754823466}
   pauseMenu: {fileID: 0}
   menus: []
+  generalTransform: {fileID: 0}
+  countdownTimerText: {fileID: 0}
+  trialTimerText: {fileID: 0}
+  fastestTrialTimerText: {fileID: 0}
   fadeImage: {fileID: 0}
   fadeDuration: 3
 --- !u!4 &337233546
@@ -9169,6 +9173,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7860573363999048552, guid: e60a0c86aaed77444a397b78f10802d5, type: 3}
+      propertyPath: m_carBody
+      value: 
+      objectReference: {fileID: 1295001722}
     - target: {fileID: 7860573363999048553, guid: e60a0c86aaed77444a397b78f10802d5, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -9314,6 +9322,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1283939368}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1295001722 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7860573363999048553, guid: e60a0c86aaed77444a397b78f10802d5, type: 3}
+  m_PrefabInstance: {fileID: 1278793409}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1301366188
 GameObject:
   m_ObjectHideFlags: 0

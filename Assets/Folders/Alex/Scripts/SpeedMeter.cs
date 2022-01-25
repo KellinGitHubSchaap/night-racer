@@ -18,6 +18,7 @@ public class SpeedMeter : MonoBehaviour
     private void Start()
     {
         carController = GetComponent<CarControllerScript>();
+        //needleTransform.rotation = Quaternion.Euler(new Vector3(0, 0, ZeroSpeedAngle)); //new Vector3(0, 0, ZeroSpeedAngle);
     }
 
     private void Update()
@@ -31,10 +32,9 @@ public class SpeedMeter : MonoBehaviour
     private float GetSpeedRotation()
     {
         float totalAngle = ZeroSpeedAngle - MaxSpeedAngle;
-
-        //float speed = rb.velocity.magnitude * 3.6f;
-        float speed = carController.m_speedInput / (carController.maxSpeed * 67.629750f) / 1.03f;
-
-        return ZeroSpeedAngle - speed * totalAngle;
+        
+        float speed = kmp / 1.69f;
+        
+        return -speed;
     }
 }
