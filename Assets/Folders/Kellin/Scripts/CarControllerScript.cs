@@ -39,7 +39,7 @@ public class CarControllerScript : MonoBehaviour
     public float m_checkGroundRayLength = 0.5f;     // Length of the ground Ray
     public Transform m_groundRayPos;                // Position of the ground Ray detection
     public LayerMask m_groundLayer;                 // What layer is considered ground
-    private bool m_isGrounded;                      // Is the car grounded
+    public bool m_isGrounded;                      // Is the car grounded
 
     [Header("Car Parts : Wheels")]
     public Transform m_frontWheelRight;
