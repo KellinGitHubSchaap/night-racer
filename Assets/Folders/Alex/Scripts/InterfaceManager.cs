@@ -40,6 +40,7 @@ public class InterfaceManager : MonoBehaviour
             instance = this;
     }
 
+    #region Menu's
     /// <summary>
     /// Call this to deactivate menu's
     /// </summary>
@@ -133,4 +134,12 @@ public class InterfaceManager : MonoBehaviour
         fadeImage.CrossFadeAlpha(alphaTarget, 0, true);
         fadeImage.CrossFadeAlpha(alphaValue, duration, true);
     }
+
+    #endregion
+
+    #region TimeTrial
+
+
+
+    #endregion
 }
