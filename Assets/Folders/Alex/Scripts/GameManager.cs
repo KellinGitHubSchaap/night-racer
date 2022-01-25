@@ -48,6 +48,8 @@ public class GameManager : MonoBehaviour
     public GameObject m_previousCheckPoint;
     public GameObject m_currentCheckPoint;
 
+    private int m_previousCheckPointID;
+
     private void Awake()
     {
         if (instance == null)
@@ -225,12 +227,19 @@ public class GameManager : MonoBehaviour
         fastestTrialTimerText.text = string.Format("{0:00} : {1:00} : {2:00}", fastestMinutes, fastestSeconds, fastestFraction);
     }
 
-    public void StoreCurrentCheckPoint(GameObject checkPointPos)
+    // Store the new triggered checkpoint 
+    public void StoreCurrentCheckPoint(GameObject checkPointPos, int ID)
     {
         if (m_checkPoints.Contains(checkPointPos))
         {
+            m_previousCheckPoint = m_currentCheckPoint;
+
+            if (checkPointPos != m_previousCheckPoint && ID > m_previousCheckPointID || m_currentCheckPoint == null)    // If the checkPoint triggered isn't the same as the previous one you are allowed to store it.
+            {
+                m_currentCheckPoint = checkPointPos;
+                m_previousCheckPointID = ID;
+            }
             Debug.Log("Checkpoint Set");
-            m_currentCheckPoint = checkPointPos;
         }
         else
         {
