@@ -1896,6 +1896,7 @@ MonoBehaviour:
   m_minMobility: 20
   m_maxMobility: 60
   m_speedInput: 0
+  m_isDrifting: 0
   m_driftRotation: 180
   m_groundDrag: 4
   m_airDrag: 0.3
@@ -1909,6 +1910,9 @@ MonoBehaviour:
   m_frontWheelLeft: {fileID: 2983295301395436850}
   m_minWheelRotation: 15
   m_maxWheelRotation: 35
+  m_carBody: {fileID: 0}
+  m_minBanking: 5
+  m_maxBanking: 10
 --- !u!54 &7860573363999048559
 Rigidbody:
   m_ObjectHideFlags: 0
