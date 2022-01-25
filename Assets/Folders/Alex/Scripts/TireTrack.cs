@@ -9,12 +9,6 @@ public class TireTrack : MonoBehaviour
 
     public CarControllerScript car;
 
-    private void Start()
-    {
-        //public bool m_isDrifting = false;
-        //public Rigidbody m_sphereBody;
-    }
-
     private void Update()
     {
         if (car.m_isDrifting && car.m_sphereBody.velocity.magnitude * 3.6f > 1 && Input.GetAxis("Horizontal") > 0 | Input.GetAxis("Horizontal") < 0)

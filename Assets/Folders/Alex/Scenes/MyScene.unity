@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 256.94434, g: 318.3711, b: 421.38672, a: 1}
+  m_IndirectSpecularColor: {r: 256.95435, g: 318.35352, b: 421.32324, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4169,7 +4169,7 @@ RectTransform:
   m_GameObject: {fileID: 1554976155}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
   - {fileID: 1266741689}
   m_Father: {fileID: 584612249}
@@ -6104,7 +6104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_sphereBody: {fileID: 3128786946208923833}
-  maxSpeed: 50
+  maxSpeed: 80
   reverseSpeed: 60
   m_accelBoost: 3
   m_maxForwardAccel: 1
@@ -6129,6 +6129,9 @@ MonoBehaviour:
   m_frontWheelLeft: {fileID: 8006056191539834531}
   m_minWheelRotation: 15
   m_maxWheelRotation: 25
+  m_carBody: {fileID: 3128786947561470200}
+  m_minBanking: 5
+  m_maxBanking: 10
 --- !u!1 &3128786947561470203
 GameObject:
   m_ObjectHideFlags: 0

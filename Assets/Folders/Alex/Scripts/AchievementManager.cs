@@ -3,6 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
+public class NewAchievement
+{
+    [Tooltip("The title of the achievement")]
+    public string title;
+    [Tooltip("The description of the achievement")]
+    public string description;
+    [Tooltip("The sprite for the achivement")]
+    public Sprite achievementLogoSprite;
+}
+
 public class AchievementManager : MonoBehaviour
 {
     public static AchievementManager instance;
@@ -21,6 +32,7 @@ public class AchievementManager : MonoBehaviour
     [SerializeField] private Sprite unlockedSprite;
     [Tooltip("The sprites for the achivements")]
     [SerializeField] private Sprite[] AchLogoSprites;
+    [SerializeField] private NewAchievement[] achievementInfo;
 
     private Dictionary<string, Achievement> achievements = new Dictionary<string, Achievement>();
     public List<string> achievementTitles = new List<string>();
@@ -44,14 +56,14 @@ public class AchievementManager : MonoBehaviour
 
     //private void Update()
     //{
-        //if (Input.GetKeyDown(KeyCode.T))
-        //    EarnAchievement("AAAAAAAAAAAAA");
-        //if (Input.GetKeyDown(KeyCode.Y))
-        //    EarnAchievement("OH NO");
-        //if (Input.GetKeyDown(KeyCode.U))
-        //    EarnAchievement("HELP");
-        //if (Input.GetKeyDown(KeyCode.I))
-        //    EarnAchievement("FINALLYYY");
+    //if (Input.GetKeyDown(KeyCode.T))
+    //    EarnAchievement("AAAAAAAAAAAAA");
+    //if (Input.GetKeyDown(KeyCode.Y))
+    //    EarnAchievement("OH NO");
+    //if (Input.GetKeyDown(KeyCode.U))
+    //    EarnAchievement("HELP");
+    //if (Input.GetKeyDown(KeyCode.I))
+    //    EarnAchievement("FINALLYYY");
     //}
 
     /// <summary>
@@ -119,9 +131,13 @@ public class AchievementManager : MonoBehaviour
     /// </summary>
     private void AddAchievements()
     {
-        CreateAchievement("OH NO", "Join the game for the first time", AchLogoSprites[0]);
-        CreateAchievement("Drive", "Reach 100 meter", AchLogoSprites[0]);
-        CreateAchievement("To the horizon", "Reach 1000 meter", AchLogoSprites[0]);
-        CreateAchievement("WATCH THE ROAD", "Die within 3 seconds", AchLogoSprites[0]);
+        for (int i = 0; i < achievementInfo.Length; i++)
+        {
+            CreateAchievement(achievementInfo[i].title, achievementInfo[i].description, achievementInfo[i].achievementLogoSprite);
+        }
+        //CreateAchievement("OH NO", "Join the game for the first time", AchLogoSprites[0]);
+        //CreateAchievement("Drive", "Reach 100 meter", AchLogoSprites[0]);
+        //CreateAchievement("To the horizon", "Reach 1000 meter", AchLogoSprites[0]);
+        //CreateAchievement("WATCH THE ROAD", "Die within 3 seconds", AchLogoSprites[0]);
     }
 }
