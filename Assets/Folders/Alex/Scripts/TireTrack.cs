@@ -11,7 +11,8 @@ public class TireTrack : MonoBehaviour
 
     private void Start()
     {
-        
+        //public bool m_isDrifting = false;
+        //public Rigidbody m_sphereBody;
     }
 
     private void Update()
