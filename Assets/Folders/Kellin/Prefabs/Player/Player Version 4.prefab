@@ -455,6 +455,7 @@ MonoBehaviour:
   m_groundLayer:
     serializedVersion: 2
     m_Bits: 1024
+  m_isGrounded: 0
   m_frontWheelRight: {fileID: 3564184051173642255}
   m_frontWheelLeft: {fileID: 7344815323854590562}
   m_minWheelRotation: 15
