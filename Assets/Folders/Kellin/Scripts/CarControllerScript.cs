@@ -39,7 +39,7 @@ public class CarControllerScript : MonoBehaviour
     public float m_checkGroundRayLength = 0.5f;     // Length of the ground Ray
     public Transform m_groundRayPos;                // Position of the ground Ray detection
     public LayerMask m_groundLayer;                 // What layer is considered ground
-    private bool m_isGrounded;                      // Is the car grounded
+    public bool m_isGrounded;                      // Is the car grounded
 
     [Header("Car Parts : Wheels")]
     public Transform m_frontWheelRight;
@@ -55,6 +55,9 @@ public class CarControllerScript : MonoBehaviour
     public float m_maxBanking = 10f;        // How much does the car bank to the side when drifting
 
     public float m_restoreRotationSpeed = 50f;
+
+    [Header("Car Crash Settings")]
+
 
     [Header("Other Settings")]
     private float m_offsetToCenterSphere = -.2f;
@@ -167,9 +170,7 @@ public class CarControllerScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            m_sphereBody.velocity = Vector3.zero;
-            m_sphereBody.transform.position = new Vector3(GameManager.instance.m_currentCheckPoint.transform.position.x, GameManager.instance.m_currentCheckPoint.transform.position.y + 2, GameManager.instance.m_currentCheckPoint.transform.position.z);
-            transform.eulerAngles = GameManager.instance.m_currentCheckPoint.transform.eulerAngles;
+            ResetToCheckPoint();
         }
 
         transform.position = new Vector3(m_sphereBody.transform.position.x, m_sphereBody.transform.position.y + m_offsetToCenterSphere, m_sphereBody.transform.position.z);
@@ -191,14 +192,34 @@ public class CarControllerScript : MonoBehaviour
             m_sphereBody.drag = m_airDrag;
             m_sphereBody.AddForce(Vector3.up * -m_gravityForce * 100);
 
-            if (transform.localEulerAngles.x != 0)
-            {
-                float xRotation = transform.localEulerAngles.x;
-                xRotation += m_restoreRotationSpeed * Time.deltaTime;
+            //if (transform.localEulerAngles.x != 0)
+            //{
+            //    float xRotation = transform.localEulerAngles.x;
 
-                transform.localEulerAngles = new Vector3(xRotation, transform.localEulerAngles.y, 0);
-            }
+            //    //Quaternion newRotation = Quaternion()
+
+            //    if (xRotation < -1  && xRotation < 20)
+            //    {
+            //        xRotation += m_restoreRotationSpeed * Time.deltaTime;
+            //    }
+            //    else if(xRotation > 1 && xRotation > -20)
+            //    {
+            //        xRotation += m_restoreRotationSpeed * Time.deltaTime;
+            //    }
+            //    //xRotation = Mathf.Lerp(xRotation, 0, Time.deltaTime);
+
+            //    transform.localEulerAngles = new Vector3(xRotation, transform.localEulerAngles.y, 0);
+
+            //    //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, transform.localRotation.y, transform.localRotation.z), Time.deltaTime);
+            //    //Debug.Log(transform.localRotation);
+            //}
         }
+
+        if (Physics.Raycast(transform.position, transform.up, out RaycastHit hit, 0.6f, m_groundLayer))
+        {
+            ResetToCheckPoint();
+        }
+
     }
 
     // Is Car Grounded will check if the groundRay is hitting a ground layer, if true return a true for m_isGrounded 
@@ -214,7 +235,37 @@ public class CarControllerScript : MonoBehaviour
 
             transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
         }
+        else
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(20, transform.eulerAngles.y, transform.eulerAngles.z), Time.deltaTime * m_restoreRotationSpeed);
+            //transform.rotation = Quaternion.Euler(new Vector3(0, transform.eulerAngles.y, 0));
+        }
 
         return m_isGrounded;
     }
+
+    public void ResetToCheckPoint()
+    {
+        m_sphereBody.velocity = Vector3.zero;
+        m_sphereBody.transform.position = new Vector3(GameManager.instance.m_currentCheckPoint.transform.position.x, GameManager.instance.m_currentCheckPoint.transform.position.y + 2, GameManager.instance.m_currentCheckPoint.transform.position.z);
+        transform.eulerAngles = GameManager.instance.m_currentCheckPoint.transform.eulerAngles;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(transform.position, transform.up * 0.6f);
+    }
+
+
+
+
+    //TODO: BUGFIX: Car tries to stabalize when upside down
+    //TODO: BUGFIX: Car flips and lands on its nose and continues flipping
+    //TODO: BUGFIX: Car doesn't reset because of issues 1 and 2
+    //TOOD: BUGFIX: Car is still way to slippery when moving and braking
+
+    //TODO: CLEAN THE CODE
+
+
 }
