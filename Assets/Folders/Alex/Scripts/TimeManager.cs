@@ -114,7 +114,7 @@ public class TimeManager : MonoBehaviour
             seconds <= PlayerPrefs.GetInt("FastestSeconds") &&
             fraction <= PlayerPrefs.GetInt("FastestFractions"))
         {
-            SaveFastestTimeAndHighScore();
+            SaveFastestTime();
             UpdateFastestTimeAndScore();
         }
     }
@@ -122,7 +122,7 @@ public class TimeManager : MonoBehaviour
     /// <summary>
     /// Call this to save the new fastest time and highscore
     /// </summary>
-    private void SaveFastestTimeAndHighScore()
+    private void SaveFastestTime()
     {
         PlayerPrefs.SetInt("FastestMinutes", (int)minutes);
         PlayerPrefs.SetInt("FastestSeconds", (int)seconds);

@@ -65,12 +65,16 @@ public class GraphicsManager : MonoBehaviour
 
         //GameManager.instance.UpdateFPSText = fpsCounterToggle.isOn;
 
-        if (ssr.rayTracing.value == true && AO.rayTracing.value == true)
-            rayTracingToggle.isOn = true;
-        else
-            rayTracingToggle.isOn = false;
+        if (rayTracingToggle)
+        {
+            if (ssr.rayTracing.value == true && AO.rayTracing.value == true)
+                rayTracingToggle.isOn = true;
+            else
+                rayTracingToggle.isOn = false;
+        }
 
-        fovAmountText.text = fovSlider.value.ToString();
+        if (fovAmountText)
+            fovAmountText.text = fovSlider.value.ToString();
 
         resolution = Screen.resolutions;
 
@@ -82,13 +86,13 @@ public class GraphicsManager : MonoBehaviour
                 SetResolutionText(resolution[selectedResolution]);
             }
         }
-        
+
         motionBlurToggle.isOn = motionBlur.active;
         fullscreenToggle.isOn = Screen.fullScreen;
         vSyncToggle.isOn = QualitySettings.vSyncCount == 0 ? false : true;
 
         //if (PlayerPrefs.HasKey("SelectedResolution"))
-            LoadData();
+        LoadData();
     }
 
     /// <summary>
@@ -96,7 +100,7 @@ public class GraphicsManager : MonoBehaviour
     /// </summary>
     public void ResolutionLeft()
     {
-        if(selectedResolution > 0)
+        if (selectedResolution > 0)
             selectedResolution--;
         if (selectedResolution <= 0)
             selectedResolution = resolution.Length - 1;
@@ -237,12 +241,12 @@ public class GraphicsManager : MonoBehaviour
         SetResolution();
         ApplyFullScreen();
         ApplyVSync();
-        SetFOV();
+        //SetFOV();
         SetBloom();
         SetMotionBlur();
-        SetSSR();
-        SetAO();
-        EnableRayTracing();
+        //SetSSR();
+        //SetAO();
+        //EnableRayTracing();
         EnableFPSCounter();
         PlayerPrefs.Save();
     }
@@ -253,14 +257,18 @@ public class GraphicsManager : MonoBehaviour
     private void LoadData()
     {
         selectedResolution = PlayerPrefs.GetInt("SelectedResolution");
-        fovSlider.value = PlayerPrefs.GetInt("FOVSliderValue");
+        if (PlayerPrefs.HasKey("FOVSliderValue"))
+            fovSlider.value = PlayerPrefs.GetInt("FOVSliderValue");
         fpsText.enabled = IntToBool(PlayerPrefs.GetInt("FPSCounter"));
         bloomDropDown.value = PlayerPrefs.GetInt("BloomValue");
         motionBlur.active = IntToBool(PlayerPrefs.GetInt("MotionBlur"));
         motionBlurDropDown.value = PlayerPrefs.GetInt("MotionBlurValue");
-        ssrDropDown.value = PlayerPrefs.GetInt("SSRValue");
-        aoDropDown.value = PlayerPrefs.GetInt("AOValue");
-        rayTracingToggle.isOn = IntToBool(PlayerPrefs.GetInt("RayTracing"));
+        if (PlayerPrefs.HasKey("RayTracing"))
+            ssrDropDown.value = PlayerPrefs.GetInt("SSRValue");
+        if (PlayerPrefs.HasKey("AOValue"))
+            aoDropDown.value = PlayerPrefs.GetInt("AOValue");
+        if (PlayerPrefs.HasKey("RayTracing"))
+            rayTracingToggle.isOn = IntToBool(PlayerPrefs.GetInt("RayTracing"));
         fullscreenToggle.isOn = IntToBool(PlayerPrefs.GetInt("FullScreen"));
         vSyncToggle.isOn = IntToBool(PlayerPrefs.GetInt("VSync"));
         ApplyChanges();
