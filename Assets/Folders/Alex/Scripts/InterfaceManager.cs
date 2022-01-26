@@ -18,8 +18,15 @@ public class InterfaceManager : MonoBehaviour
     [Tooltip("Menu's to deactivate")]
     [SerializeField] private GameObject[] menus;
 
-    //[Header("TrialTime")]
-
+    [Header("TrialTime")]
+    [Tooltip("Where the trialinfo's are placed")]
+    public Transform generalTransform;
+    [Tooltip("The countdown timer text")]
+    public TextMeshProUGUI countdownTimerText;
+    [Tooltip("The trial timer text")]
+    public TextMeshProUGUI trialTimerText;
+    [Tooltip("The fastest trial timer text")]
+    public TextMeshProUGUI fastestTrialTimerText;
 
     [Header("Fade")]
     [Tooltip("The fade panel")]
@@ -33,6 +40,7 @@ public class InterfaceManager : MonoBehaviour
             instance = this;
     }
 
+    #region Menu's
     /// <summary>
     /// Call this to deactivate menu's
     /// </summary>
@@ -126,4 +134,6 @@ public class InterfaceManager : MonoBehaviour
         fadeImage.CrossFadeAlpha(alphaTarget, 0, true);
         fadeImage.CrossFadeAlpha(alphaValue, duration, true);
     }
+
+    #endregion
 }

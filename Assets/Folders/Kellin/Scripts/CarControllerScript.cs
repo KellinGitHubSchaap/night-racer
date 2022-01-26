@@ -28,7 +28,7 @@ public class CarControllerScript : MonoBehaviour
     public float m_speedInput;
     private float m_rotationInput;
 
-    private bool m_isDrifting = false;
+    public bool m_isDrifting = false;
     public float m_driftRotation = 180f;            // Rotation when in drift mode 
 
     public float m_groundDrag = 3f;                 // Drag when the car is on the ground
@@ -41,12 +41,20 @@ public class CarControllerScript : MonoBehaviour
     public LayerMask m_groundLayer;                 // What layer is considered ground
     private bool m_isGrounded;                      // Is the car grounded
 
-    [Header("Car Parts")]
+    [Header("Car Parts : Wheels")]
     public Transform m_frontWheelRight;
     public Transform m_frontWheelLeft;
 
     public float m_minWheelRotation = 15f;      // If the car isn't drifting a less sharp tire angle is needed
     public float m_maxWheelRotation = 25f;      // If the car is drifting a sharper tire angle is needed
+
+    [Header("Car Parts : Body")]
+    public Transform m_carBody;
+
+    public float m_minBanking = 5f;        // How much does the car bank to the side when not drifting
+    public float m_maxBanking = 10f;        // How much does the car bank to the side when drifting
+
+    public float m_restoreRotationSpeed = 50f;
 
     [Header("Other Settings")]
     private float m_offsetToCenterSphere = -.2f;
@@ -107,7 +115,7 @@ public class CarControllerScript : MonoBehaviour
         m_accel = m_speedInput < 0 ? m_accelBoost : m_maxForwardAccel;          // Change accel based on the current SpeedInput of the car 
 
         m_speedInput = Mathf.Clamp(m_speedInput, (-reverseSpeed * 67.629750f) / 1.03f, (maxSpeed * 67.629750f) / 1.03f);                  // Clamp the speed  //1kmp 67,629750
-        
+
         if (!m_isDrifting)
         {
             m_mobility = Mathf.Clamp(m_mobility, m_minMobility, m_maxMobility);     // Clamp the mobility
@@ -143,14 +151,25 @@ public class CarControllerScript : MonoBehaviour
             // If the car is drifting turn the frontwheels
             if (!m_isDrifting)
             {
-                m_frontWheelLeft.localEulerAngles = new Vector3(0, (Input.GetAxis("Horizontal") * m_minWheelRotation), m_frontWheelLeft.localEulerAngles.z);
-                m_frontWheelRight.localEulerAngles = new Vector3(0, (Input.GetAxis("Horizontal") * m_minWheelRotation), m_frontWheelRight.localEulerAngles.z);
+                m_frontWheelLeft.localEulerAngles = new Vector3(0, (Input.GetAxis("Horizontal") * m_minWheelRotation + 180), 0);
+                m_frontWheelRight.localEulerAngles = new Vector3(0, (Input.GetAxis("Horizontal") * m_minWheelRotation) + 180, 0);
+
+                m_carBody.localEulerAngles = new Vector3(0, m_carBody.localEulerAngles.y, Input.GetAxis("Horizontal") * m_minBanking);
             }
             else
             {
-                m_frontWheelLeft.localEulerAngles = new Vector3(0, (Input.GetAxis("Horizontal") * m_maxWheelRotation), m_frontWheelLeft.localEulerAngles.z);
-                m_frontWheelRight.localEulerAngles = new Vector3(0, (Input.GetAxis("Horizontal") * m_maxWheelRotation), m_frontWheelRight.localEulerAngles.z);
+                m_frontWheelLeft.localEulerAngles = new Vector3(0, (Input.GetAxis("Horizontal") * m_maxWheelRotation) + 180, 0);
+                m_frontWheelRight.localEulerAngles = new Vector3(0, (Input.GetAxis("Horizontal") * m_maxWheelRotation) + 180, 0);
+
+                m_carBody.localEulerAngles = new Vector3(0, m_carBody.localEulerAngles.y, Input.GetAxis("Horizontal") * m_maxBanking);
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            m_sphereBody.velocity = Vector3.zero;
+            m_sphereBody.transform.position = new Vector3(GameManager.instance.m_currentCheckPoint.transform.position.x, GameManager.instance.m_currentCheckPoint.transform.position.y + 2, GameManager.instance.m_currentCheckPoint.transform.position.z);
+            transform.eulerAngles = GameManager.instance.m_currentCheckPoint.transform.eulerAngles;
         }
 
         transform.position = new Vector3(m_sphereBody.transform.position.x, m_sphereBody.transform.position.y + m_offsetToCenterSphere, m_sphereBody.transform.position.z);
@@ -171,6 +190,14 @@ public class CarControllerScript : MonoBehaviour
         {
             m_sphereBody.drag = m_airDrag;
             m_sphereBody.AddForce(Vector3.up * -m_gravityForce * 100);
+
+            if (transform.localEulerAngles.x != 0)
+            {
+                float xRotation = transform.localEulerAngles.x;
+                xRotation += m_restoreRotationSpeed * Time.deltaTime;
+
+                transform.localEulerAngles = new Vector3(xRotation, transform.localEulerAngles.y, 0);
+            }
         }
     }
 
