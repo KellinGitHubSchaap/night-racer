@@ -17,6 +17,8 @@ public class TimeManager : MonoBehaviour
     private float minutes;
     private float seconds;
     private float fraction;
+    private float xSpace;
+    private float ySpace;
 
     private void Start()
     {
@@ -91,11 +93,19 @@ public class TimeManager : MonoBehaviour
     {
         gameManager.CurrentAmountOfTrialSaves = PlayerPrefs.GetInt("AmountOfSaves");
 
-        UpdateFastestTimeAndScore();
+        //UpdateFastestTime();
 
         for (int i = 1; i <= gameManager.CurrentAmountOfTrialSaves; i++)
         {
-            GameObject info = Instantiate(gameManager.trialInfoPrefab, interFace.generalTransform.position, Quaternion.identity, interFace.generalTransform.parent);
+            if (i > 1)
+                ySpace += trialOffset.y;
+            else if(i == 5)
+            {
+                xSpace += trialOffset.x;
+                ySpace = 3.5f;
+            }
+
+            GameObject info = Instantiate(gameManager.trialInfoPrefab, new Vector3(interFace.generalTransform.position.x + xSpace, interFace.generalTransform.position.y - ySpace, interFace.generalTransform.position.z), Quaternion.identity, interFace.generalTransform.parent);
             info.transform.SetParent(interFace.generalTransform);
 
             float minutes = PlayerPrefs.GetInt("Minutes" + i);
@@ -117,7 +127,7 @@ public class TimeManager : MonoBehaviour
             fraction <= PlayerPrefs.GetInt("FastestFractions"))
         {
             SaveFastestTime();
-            UpdateFastestTimeAndScore();
+            UpdateFastestTime();
         }
     }
 
@@ -134,7 +144,7 @@ public class TimeManager : MonoBehaviour
     /// <summary>
     /// Call this to update the fastest time and highscore
     /// </summary>
-    private void UpdateFastestTimeAndScore()
+    private void UpdateFastestTime()
     {
         float fastestMinutes = PlayerPrefs.GetInt("FastestMinutes");
         float fastestSeconds = PlayerPrefs.GetInt("FastestSeconds");
