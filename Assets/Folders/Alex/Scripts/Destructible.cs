@@ -12,29 +12,31 @@ public class Destructible : MonoBehaviour
     [SerializeField] private float breakSpeed = 20;
     [Tooltip("The breakable layer")]
     [SerializeField] private LayerMask destructibleLayer;
+    [Tooltip("The object collider")]
+    [SerializeField] private Collider col;
 
     private bool broken;
+    private float kmp;
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("DDDDDDDDDDDDDDDDDDDDDDD");
-        if (collision.gameObject.GetComponent<Rigidbody>().velocity.magnitude * 3.6f > breakSpeed)
-        {
-            Debug.Log("AAAAAAAAAAAAAAA");
-            //Break();
-        }
+        if (kmp >= breakSpeed)
+            Break(collision.collider.bounds.ClosestPoint(collision.collider.gameObject.transform.position));
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (broken)
-            return;
+        //if (broken)
+        //    return;
 
-        if (other.gameObject.GetComponent<Rigidbody>().velocity.magnitude * 3.6f > breakSpeed)
-        {
-            broken = true;
-            Break(other.bounds.ClosestPoint(other.gameObject.transform.position));
-        }
+        //if (other.gameObject.GetComponent<Rigidbody>().velocity.magnitude * 3.6f > breakSpeed)
+        //{
+        if (other.gameObject.CompareTag("Player"))
+            kmp = other.gameObject.GetComponent<Rigidbody>().velocity.magnitude * 3.6f;
+        //col.isTrigger = true;
+        //broken = true;
+        //Break(other.bounds.ClosestPoint(other.gameObject.transform.position));
+        //}
     }
 
     /// <summary>
@@ -48,7 +50,6 @@ public class Destructible : MonoBehaviour
         foreach (Collider item in colliderPieces)
         {
             Rigidbody rb = item.gameObject.GetComponent<Rigidbody>();
-            Debug.Log(rb.gameObject);
             rb.AddExplosionForce(250, hitPosition, 5);
         }
         Destroy(gameObject);

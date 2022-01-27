@@ -613,7 +613,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Vector, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"vector":{"x":-0.3330000042915344,"y":2.0,"z":-0.3330000042915344}}'
+      m_SerializableObject: '{"vector":{"x":-0.3330000042915344,"y":5.329999923706055,"z":-0.3330000042915344}}'
     m_Space: 0
   m_Property:
     name: A
@@ -783,7 +783,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Vector, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"vector":{"x":0.3330000042915344,"y":3.2899999618530275,"z":0.3330000042915344}}'
+      m_SerializableObject: '{"vector":{"x":0.3330000042915344,"y":8.819999694824219,"z":0.3330000042915344}}'
     m_Space: 0
   m_Property:
     name: B
@@ -980,7 +980,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 1.3
+      m_SerializableObject: 0.9
     m_Space: 2147483647
   m_Property:
     name: A
@@ -1014,7 +1014,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 1.8
+      m_SerializableObject: 1.1
     m_Space: 2147483647
   m_Property:
     name: B
@@ -1460,7 +1460,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614641}
       inputSlot: {fileID: 8926484042661614594}
-    position: {x: 784, y: 1242}
+    position: {x: 775, y: 1302}
     expandedSlots: []
     expanded: 1
 --- !u!114 &8926484042661614641
@@ -1546,7 +1546,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.85
+      m_SerializableObject: 3.35
     m_Space: 2147483647
   m_Property:
     name: dragCoefficient
