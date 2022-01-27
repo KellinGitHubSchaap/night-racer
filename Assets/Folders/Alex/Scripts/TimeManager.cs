@@ -6,6 +6,8 @@ public class TimeManager : MonoBehaviour
 {
     [Tooltip("How many seconds it takes before the race starts")]
     [SerializeField] private int countdownTime = 3;
+    [Tooltip("How much space there is between the trial info's")]
+    [SerializeField] private Vector2 trialOffset;
 
     private GameManager gameManager;
     private InterfaceManager interFace;
