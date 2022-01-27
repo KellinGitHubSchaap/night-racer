@@ -7,6 +7,4 @@ public class TrialInfo : MonoBehaviour
 {
     [Tooltip("The trial time text")]
     public TextMeshProUGUI trialTimeText;
-    [Tooltip("The score text")]
-    public TextMeshProUGUI scoreText;
 }
