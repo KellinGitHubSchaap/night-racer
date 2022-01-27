@@ -986,11 +986,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   m_isGrounded: 0
+  m_roofRayLength: 0.6
   m_frontWheelRight: {fileID: 8147743918593173324}
   m_frontWheelLeft: {fileID: 2705003049201165601}
   m_minWheelRotation: 15
   m_maxWheelRotation: 35
-  m_carBody: {fileID: 5671934502896384969}
+  m_carBodyModel: {fileID: 0}
   m_minBanking: 5
   m_maxBanking: 10
   m_restoreRotationSpeed: 0.5
