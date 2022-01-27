@@ -191,35 +191,12 @@ public class CarControllerScript : MonoBehaviour
         {
             m_sphereBody.drag = m_airDrag;
             m_sphereBody.AddForce(Vector3.up * -m_gravityForce * 100);
-
-            //if (transform.localEulerAngles.x != 0)
-            //{
-            //    float xRotation = transform.localEulerAngles.x;
-
-            //    //Quaternion newRotation = Quaternion()
-
-            //    if (xRotation < -1  && xRotation < 20)
-            //    {
-            //        xRotation += m_restoreRotationSpeed * Time.deltaTime;
-            //    }
-            //    else if(xRotation > 1 && xRotation > -20)
-            //    {
-            //        xRotation += m_restoreRotationSpeed * Time.deltaTime;
-            //    }
-            //    //xRotation = Mathf.Lerp(xRotation, 0, Time.deltaTime);
-
-            //    transform.localEulerAngles = new Vector3(xRotation, transform.localEulerAngles.y, 0);
-
-            //    //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, transform.localRotation.y, transform.localRotation.z), Time.deltaTime);
-            //    //Debug.Log(transform.localRotation);
-            //}
         }
 
         if (Physics.Raycast(transform.position, transform.up, out RaycastHit hit, 0.6f, m_groundLayer))
         {
             ResetToCheckPoint();
         }
-
     }
 
     // Is Car Grounded will check if the groundRay is hitting a ground layer, if true return a true for m_isGrounded 
@@ -238,7 +215,6 @@ public class CarControllerScript : MonoBehaviour
         else
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(20, transform.eulerAngles.y, transform.eulerAngles.z), Time.deltaTime * m_restoreRotationSpeed);
-            //transform.rotation = Quaternion.Euler(new Vector3(0, transform.eulerAngles.y, 0));
         }
 
         return m_isGrounded;
