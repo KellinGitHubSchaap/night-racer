@@ -27,8 +27,8 @@ public class TimeManager : MonoBehaviour
         countdownTimer = countdownTime;
 
         //PlayerPrefs.DeleteAll();
-        if (PlayerPrefs.GetInt("AmountOfSaves") > 0)
-            LoadTrialTimes();
+        //if (PlayerPrefs.GetInt("AmountOfSaves") > 0)
+        //    LoadTrialTimes();
     }
 
     private void Update()
