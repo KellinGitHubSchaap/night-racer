@@ -59,8 +59,8 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 1
   colorMode:
-    m_OverrideState: 0
-    m_Value: 1
+    m_OverrideState: 1
+    m_Value: 0
   color:
     m_OverrideState: 0
     m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
@@ -69,7 +69,7 @@ MonoBehaviour:
     showEyeDropper: 1
   tint:
     m_OverrideState: 1
-    m_Value: {r: 0.8679245, g: 0.22435024, b: 0.22435024, a: 1}
+    m_Value: {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 1}
     hdr: 1
     showAlpha: 0
     showEyeDropper: 1
@@ -94,7 +94,7 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 639.29
   maximumHeight:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 639.29
   meanFreePath:
     m_OverrideState: 0
@@ -105,7 +105,7 @@ MonoBehaviour:
     m_Value: 1
   albedo:
     m_OverrideState: 1
-    m_Value: {r: 0.6792453, g: 0.23325025, b: 0.23325025, a: 1}
+    m_Value: {r: 1, g: 0.5019608, b: 0, a: 1}
     hdr: 0
     showAlpha: 1
     showEyeDropper: 1
@@ -301,8 +301,8 @@ MonoBehaviour:
     min: 0
     max: 1
   aerosolTint:
-    m_OverrideState: 0
-    m_Value: {r: 0.9, g: 0.9, b: 0.9, a: 1}
+    m_OverrideState: 1
+    m_Value: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
@@ -366,7 +366,7 @@ MonoBehaviour:
     max: 1
   horizonTint:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 0.6497886, b: 0.2679245, a: 1}
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 0
