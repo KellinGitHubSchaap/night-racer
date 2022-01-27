@@ -19,7 +19,7 @@ public class AchievementInfo : MonoBehaviour
     /// <param name="achTitleName">The title of the achievement</param>
     /// <param name="achDesText">The description of the achievement</param>
     /// <param name="achSprite">The sprite for the achievement</param>
-    public virtual void SetAchievement(string achTitleName, string achDesText, Sprite achSprite)
+    public virtual void SetAchievement(string achTitleName, string achDesText, Sprite achSprite = null)
     {
         titleText.text = achTitleName;
         descriptionText.text = achDesText;

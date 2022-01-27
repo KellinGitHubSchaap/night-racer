@@ -17,8 +17,8 @@ public class TimeManager : MonoBehaviour
     private float minutes;
     private float seconds;
     private float fraction;
-    private float xSpace;
-    private float ySpace;
+    private float xOffset;
+    private float yOffset;
 
     private void Start()
     {
@@ -27,8 +27,8 @@ public class TimeManager : MonoBehaviour
         countdownTimer = countdownTime;
 
         //PlayerPrefs.DeleteAll();
-        //if (PlayerPrefs.GetInt("AmountOfSaves") > 0)
-        //    LoadTrialTimes();
+        if (PlayerPrefs.GetInt("AmountOfSaves") > 0)
+            LoadTrialTimes();
     }
 
     private void Update()
@@ -93,20 +93,21 @@ public class TimeManager : MonoBehaviour
     {
         gameManager.CurrentAmountOfTrialSaves = PlayerPrefs.GetInt("AmountOfSaves");
 
-        //UpdateFastestTime();
+        UpdateFastestTimeAndScore();
 
         for (int i = 1; i <= gameManager.CurrentAmountOfTrialSaves; i++)
         {
-            if (i > 1)
-                ySpace += trialOffset.y;
-            else if(i == 5)
+            
+            if (i == 6)
             {
-                xSpace += trialOffset.x;
-                ySpace = 3.5f;
+                xOffset = trialOffset.x;
+                yOffset = 0;
             }
 
-            GameObject info = Instantiate(gameManager.trialInfoPrefab, new Vector3(interFace.generalTransform.position.x + xSpace, interFace.generalTransform.position.y - ySpace, interFace.generalTransform.position.z), Quaternion.identity, interFace.generalTransform.parent);
+            GameObject info = Instantiate(gameManager.trialInfoPrefab, new Vector3(interFace.generalTransform.position.x + xOffset, interFace.generalTransform.position.y - yOffset, interFace.generalTransform.position.z), Quaternion.identity, interFace.generalTransform.parent);
             info.transform.SetParent(interFace.generalTransform);
+
+            yOffset += trialOffset.y;
 
             float minutes = PlayerPrefs.GetInt("Minutes" + i);
             float seconds = PlayerPrefs.GetInt("Seconds" + i);
@@ -127,7 +128,7 @@ public class TimeManager : MonoBehaviour
             fraction <= PlayerPrefs.GetInt("FastestFractions"))
         {
             SaveFastestTime();
-            UpdateFastestTime();
+            UpdateFastestTimeAndScore();
         }
     }
 
@@ -144,11 +145,12 @@ public class TimeManager : MonoBehaviour
     /// <summary>
     /// Call this to update the fastest time and highscore
     /// </summary>
-    private void UpdateFastestTime()
+    private void UpdateFastestTimeAndScore()
     {
         float fastestMinutes = PlayerPrefs.GetInt("FastestMinutes");
         float fastestSeconds = PlayerPrefs.GetInt("FastestSeconds");
         float fastestFraction = PlayerPrefs.GetInt("FastestFractions");
-        interFace.fastestTrialTimerText.text = string.Format("{0:00} : {1:00} : {2:00}", fastestMinutes, fastestSeconds, fastestFraction);
+        if (interFace.fastestTrialTimerText)
+            interFace.fastestTrialTimerText.text = string.Format("{0:00} : {1:00} : {2:00}", fastestMinutes, fastestSeconds, fastestFraction);
     }
 }
