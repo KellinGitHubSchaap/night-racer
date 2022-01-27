@@ -5051,6 +5051,7 @@ MonoBehaviour:
   m_groundLayer:
     serializedVersion: 2
     m_Bits: 1024
+  m_isGrounded: 0
   m_frontWheelRight: {fileID: 4288475426490150094}
   m_frontWheelLeft: {fileID: 8006056191539834531}
   m_minWheelRotation: 15
@@ -5109,6 +5110,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftTrail: {fileID: 932229626}
   rightTrail: {fileID: 1056404403}
+  leftTrailDust: {fileID: 0}
+  rightTrailDust: {fileID: 0}
   car: {fileID: 3128786947561470201}
 --- !u!1001 &3180045736931943688
 PrefabInstance:
