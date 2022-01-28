@@ -2029,7 +2029,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 2.06, z: -6.98}
+  m_FollowOffset: {x: 0, y: 2.65, z: -6.98}
   m_XDamping: 0
   m_YDamping: 0.7
   m_ZDamping: 0
@@ -2075,8 +2075,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5373111294310190187}
-  m_LocalRotation: {x: 0.14299914, y: 0.00000029802322, z: -0.000000037252903, w: 0.98972285}
-  m_LocalPosition: {x: -0.000003695488, y: 2.06, z: -6.9799967}
+  m_LocalRotation: {x: 0.18042974, y: 0.00000032782557, z: -0.000000044703487, w: 0.9835879}
+  m_LocalPosition: {x: -0.000003695488, y: 2.65, z: -6.9799967}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5373111294267682732}
@@ -2347,6 +2347,7 @@ GameObject:
   - component: {fileID: 7060113042296550269}
   - component: {fileID: 4639868075515082193}
   - component: {fileID: 467193347}
+  - component: {fileID: 1616726560}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2485,6 +2486,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_carEngine: {fileID: 1724378478}
+--- !u!114 &1616726560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7060113042296550265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73c79a5da312a2f4f85d8250ae5c10ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedoMeterText: {fileID: 0}
+  needleTransform: {fileID: 0}
+  MaxSpeedAngle: -20
+  ZeroSpeedAngle: 220
+  rb: {fileID: 7060113042296550268}
 --- !u!1 &7627733751722451460
 GameObject:
   m_ObjectHideFlags: 0
@@ -2690,13 +2708,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 365c9c7a25504e043bf9bd5465c27f29, type: 3}
---- !u!4 &6237597571912069705 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3303747616136488025, guid: 365c9c7a25504e043bf9bd5465c27f29, type: 3}
-  m_PrefabInstance: {fileID: 8883668034233013776}
-  m_PrefabAsset: {fileID: 0}
 --- !u!96 &6237597571912069706 stripped
 TrailRenderer:
   m_CorrespondingSourceObject: {fileID: 3303747616136488026, guid: 365c9c7a25504e043bf9bd5465c27f29, type: 3}
+  m_PrefabInstance: {fileID: 8883668034233013776}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6237597571912069705 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3303747616136488025, guid: 365c9c7a25504e043bf9bd5465c27f29, type: 3}
   m_PrefabInstance: {fileID: 8883668034233013776}
   m_PrefabAsset: {fileID: 0}
