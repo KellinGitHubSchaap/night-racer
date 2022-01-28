@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Folders/Alex/Timelines/PlayTimeline.playable.meta
 guid: 613db5c8fa4372a47802611e01179875
 NativeFormatImporter:
+=======
+guid: 69c3f48662cb61f46ac4a0afcc3772dc
+folderAsset: yes
+DefaultImporter:
+>>>>>>> main:Assets/Folders/Bram/Assets/UI.meta
   externalObjects: {}
   mainObjectFileID: 11400000
   userData: 

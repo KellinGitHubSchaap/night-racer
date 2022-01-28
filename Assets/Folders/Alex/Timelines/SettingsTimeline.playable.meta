@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Folders/Alex/Timelines/SettingsTimeline.playable.meta
 guid: 0b8267151712c5546aeff53ab89379e3
 NativeFormatImporter:
+=======
+guid: b9358a59d8de0a1499e968bae8ac2999
+folderAsset: yes
+DefaultImporter:
+>>>>>>> main:Assets/Folders/Kellin/Songs.meta
   externalObjects: {}
   mainObjectFileID: 11400000
   userData: 

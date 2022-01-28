@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Folders/Alex/VFX/SandDustExplosion.vfx.meta
 guid: f527751f1cb554c4f9b352282928419a
 VisualEffectImporter:
+=======
+guid: ddb53f7850f219043a82b85f300b7a52
+DefaultImporter:
+>>>>>>> main:Assets/Folders/Kellin/Scenes/Checkpoint Implement.unity.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
