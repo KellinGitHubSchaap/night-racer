@@ -20,34 +20,16 @@ public class AudioManager : MonoBehaviour
     public SongDataSO[] m_songData;
     public AudioClip m_currentSong;
 
-    private void Awake()
-    {
-        if (backgroundAudio)
-        {
-            backGroundAudioSource.clip = backgroundAudio;
-            backGroundAudioSource.Play();
-        }
-    }
-
     private void Start()
     {
-        if (!PlayerPrefs.HasKey("BackGroundSliderValue") || !PlayerPrefs.HasKey("SoundEffectsSliderValue"))
-        {
-            PlayerPrefs.SetFloat("BackGroundSliderValue", 1);
-            PlayerPrefs.SetFloat("SoundEffectsSliderValue", 1);
-        }
-        
         if (PlayerPrefs.GetFloat("BackgroundVolume") != backGroundAudioSource.volume)
         {
             backGroundAudioSource.volume = PlayerPrefs.GetFloat("BackgroundVolume");
         }
 
-        //audioMixer.SetFloat("BackgroundVolume", Mathf.Log10(bgSliderValue) * 20);
-        //audioMixer.SetFloat("SoundEffectsVolume", Mathf.Log10(effectSliderValue) * 20);
-
         StartCoroutine(UpdateSong());
-        //backGroundAudioSource.volume = PlayerPrefs.GetFloat("BackGroundSliderValue");
-    
+        backGroundAudioSource.volume = PlayerPrefs.GetFloat("BackgroundVolume");
+
     }
 
     private void Update()
@@ -57,20 +39,10 @@ public class AudioManager : MonoBehaviour
             StartCoroutine(UpdateSong());
         }
 
-        if (PlayerPrefs.GetFloat("BackgroundVolume") != backGroundAudioSource.volume)
+        if (PlayerPrefs.GetFloat("MusicVolume") != backGroundAudioSource.volume)
         {
-            backGroundAudioSource.volume = PlayerPrefs.GetFloat("BackgroundVolume");
+            backGroundAudioSource.volume = PlayerPrefs.GetFloat("MusicVolume");
         }
-    }
-
-    public void SetVolumeBackGround(float sliderValue)
-    {
-        audioMixer.SetFloat("BackgroundVolume", sliderValue);
-    }
-
-    public void SetVolumeEffects(float sliderValue)
-    {
-        audioMixer.SetFloat("SoundEffectsVolume", sliderValue);
     }
 
     private IEnumerator UpdateSong()
