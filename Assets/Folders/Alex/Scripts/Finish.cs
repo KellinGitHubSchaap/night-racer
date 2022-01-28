@@ -9,6 +9,7 @@ public class Finish : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             GameManager.instance.State = GameManager.GameState.Finish;
+            TimeManager.instance.SaveTrialTime();
         }
     }
 }

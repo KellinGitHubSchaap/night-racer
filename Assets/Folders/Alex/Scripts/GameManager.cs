@@ -79,12 +79,12 @@ public class GameManager : MonoBehaviour
         if (currentAmountOfTrialSaves < maxAmountOfTrialSaves)
         {
             currentAmountOfTrialSaves++;
-            //SaveTrialTime();
-            //CheckFastestTime();
+            TimeManager.instance.SaveTrialTime();
+            TimeManager.instance.CheckFastestTime();
             if (currentAmountOfTrialSaves == 1)
             {
-                //SaveFastestTimeAndHighScore();
-                //UpdateFastestTimeAndScore();
+                TimeManager.instance.SaveFastestTime();
+                TimeManager.instance.UpdateFastestTimeAndScore();
             }
         }
     }
