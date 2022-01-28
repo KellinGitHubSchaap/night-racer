@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
+    public static TimeManager instance;
+
     [Tooltip("How many seconds it takes before the race starts")]
     [SerializeField] private int countdownTime = 3;
     [Tooltip("How much space there is between the trial info's")]
@@ -19,6 +21,18 @@ public class TimeManager : MonoBehaviour
     private float fraction;
     private float xOffset;
     private float yOffset;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(this);
+        }
+    }
 
     private void Start()
     {
@@ -78,7 +92,7 @@ public class TimeManager : MonoBehaviour
     /// <summary>
     /// Save the current trial time
     /// </summary>
-    private void SaveTrialTime()
+    public void SaveTrialTime()
     {
         PlayerPrefs.SetInt("AmountOfSaves", gameManager.CurrentAmountOfTrialSaves);
         PlayerPrefs.SetInt("Minutes" + gameManager.CurrentAmountOfTrialSaves, (int)minutes);
@@ -89,7 +103,7 @@ public class TimeManager : MonoBehaviour
     /// <summary>
     /// Load the saved trial times
     /// </summary>
-    private void LoadTrialTimes()
+    public void LoadTrialTimes()
     {
         gameManager.CurrentAmountOfTrialSaves = PlayerPrefs.GetInt("AmountOfSaves");
 
@@ -121,7 +135,7 @@ public class TimeManager : MonoBehaviour
     /// <summary>
     /// Checks if current trial time is less then fastest trial time
     /// </summary>
-    private void CheckFastestTime()
+    public void CheckFastestTime()
     {
         if (minutes <= PlayerPrefs.GetInt("FastestMinutes") &&
             seconds <= PlayerPrefs.GetInt("FastestSeconds") &&
@@ -135,7 +149,7 @@ public class TimeManager : MonoBehaviour
     /// <summary>
     /// Call this to save the new fastest time and highscore
     /// </summary>
-    private void SaveFastestTime()
+    public void SaveFastestTime()
     {
         PlayerPrefs.SetInt("FastestMinutes", (int)minutes);
         PlayerPrefs.SetInt("FastestSeconds", (int)seconds);
@@ -145,7 +159,7 @@ public class TimeManager : MonoBehaviour
     /// <summary>
     /// Call this to update the fastest time and highscore
     /// </summary>
-    private void UpdateFastestTimeAndScore()
+    public void UpdateFastestTimeAndScore()
     {
         float fastestMinutes = PlayerPrefs.GetInt("FastestMinutes");
         float fastestSeconds = PlayerPrefs.GetInt("FastestSeconds");
