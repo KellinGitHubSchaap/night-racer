@@ -116,7 +116,7 @@ public class AchievementManager : MonoBehaviour
     /// <param name="achLogo">The sprite of the achievement</param>
     private void CreateAchievement(string title, string description, Sprite achLogo)
     {
-        GameObject ach = Instantiate(visualAchievement, new Vector3(generalTransform.position.x, generalTransform.position.y - yOffset, generalTransform.position.z), Quaternion.identity, generalTransform.parent);
+        GameObject ach = Instantiate(visualAchievement, new Vector3(generalTransform.position.x, generalTransform.position.y - yOffset, generalTransform.position.z - 0.1f), Quaternion.identity, generalTransform.parent);
         ach.transform.SetParent(generalTransform);
 
         Achievement newAchievement = new Achievement(title, description, achLogo, unlockedSprite, ach);
