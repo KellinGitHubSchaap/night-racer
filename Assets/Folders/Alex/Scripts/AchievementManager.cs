@@ -38,6 +38,7 @@ public class AchievementManager : MonoBehaviour
     public List<string> achievementTitles = new List<string>();
     private int achievementsWaiting;
     private bool achievementEarned;
+    private float yOffset;
 
     private void Awake()
     {
@@ -51,7 +52,7 @@ public class AchievementManager : MonoBehaviour
 
     private void Start()
     {
-        EarnAchievement("OH NO");
+        
     }
 
     //private void Update()
@@ -115,7 +116,7 @@ public class AchievementManager : MonoBehaviour
     /// <param name="achLogo">The sprite of the achievement</param>
     private void CreateAchievement(string title, string description, Sprite achLogo)
     {
-        GameObject ach = Instantiate(visualAchievement, generalTransform.position, Quaternion.identity, generalTransform.parent);
+        GameObject ach = Instantiate(visualAchievement, new Vector3(generalTransform.position.x, generalTransform.position.y - yOffset, generalTransform.position.z), Quaternion.identity, generalTransform.parent);
         ach.transform.SetParent(generalTransform);
 
         Achievement newAchievement = new Achievement(title, description, achLogo, unlockedSprite, ach);
@@ -134,6 +135,7 @@ public class AchievementManager : MonoBehaviour
         for (int i = 0; i < achievementInfo.Length; i++)
         {
             CreateAchievement(achievementInfo[i].title, achievementInfo[i].description, achievementInfo[i].achievementLogoSprite);
+            yOffset += 1.19f;
         }
         //CreateAchievement("OH NO", "Join the game for the first time", AchLogoSprites[0]);
         //CreateAchievement("Drive", "Reach 100 meter", AchLogoSprites[0]);
