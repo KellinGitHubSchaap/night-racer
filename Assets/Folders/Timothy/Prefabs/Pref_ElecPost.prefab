@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1823605312264249410}
   - component: {fileID: 3378092022405115879}
   - component: {fileID: 650087907982924589}
+  - component: {fileID: 2511897951930968046}
   m_Layer: 0
   m_Name: Pref_ElecPost
   m_TagString: Untagged
@@ -81,3 +82,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &2511897951930968046
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298567153724095224}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.06782544
+  m_Height: 4.293294
+  m_Direction: 1
+  m_Center: {x: -0.000000059604645, y: 0, z: 0.01}
