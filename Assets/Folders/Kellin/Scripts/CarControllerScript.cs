@@ -78,6 +78,9 @@ public class CarControllerScript : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.instance.State != GameManager.GameState.Race)
+            return;
+
         GetForwardInput(Input.GetAxis("Vertical"));                             // Forward speed of the car uses the Input.GetAxis(Vertical)
         m_accel = m_speedInput < 0 ? m_accelBoost : m_maxForwardAccel;          // Change accel based on the current SpeedInput of the car 
 
@@ -204,6 +207,9 @@ public class CarControllerScript : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (GameManager.instance.State != GameManager.GameState.Race)
+            return;
+
         // If the car is on the ground it needs to receive a different amount of drag and you can drive
         if (IsCarGrounded())
         {
