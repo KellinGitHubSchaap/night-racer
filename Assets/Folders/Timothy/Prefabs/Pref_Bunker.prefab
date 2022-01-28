@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6480154535191114146}
   - component: {fileID: 7944905692404317703}
   - component: {fileID: 5306664141823150797}
+  - component: {fileID: 1831390207664795262}
   m_Layer: 0
   m_Name: Pref_Bunker
   m_TagString: Untagged
@@ -81,3 +82,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1831390207664795262
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5955432834046077720}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.30963612, y: 0.26898977, z: 0.5696098}
+  m_Center: {x: 0.004052353, y: 0, z: 0.0017070532}

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2244054869023196812}
   - component: {fileID: 2921613049365399849}
   - component: {fileID: 1112196552237186531}
+  - component: {fileID: 8994918766620998090}
   m_Layer: 0
   m_Name: Pref_JunkTower 1
   m_TagString: Untagged
@@ -81,3 +82,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8994918766620998090
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1472585471164767286}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.9106015, y: 6.007429, z: 1.2014676}
+  m_Center: {x: -0.31033128, y: -0.6733284, z: -0.009329975}
