@@ -14,10 +14,10 @@ public class UpdateAudioSlider : MonoBehaviour
     {
         slider = GetComponent<Slider>();
 
-        if (isBackGroundSlider)
-            slider.value = PlayerPrefs.GetFloat("BackGroundSliderValue");
-        else
-            slider.value = PlayerPrefs.GetFloat("SoundEffectsSliderValue");
+        //if (isBackGroundSlider)
+        //    slider.value = PlayerPrefs.GetFloat("BackgroundVolume");
+        //else
+        //    slider.value = PlayerPrefs.GetFloat("BackgroundVolume");
     }
 
     /// <summary>
@@ -26,8 +26,8 @@ public class UpdateAudioSlider : MonoBehaviour
     public void UpdateSoundVolume()
     {
         if (isBackGroundSlider)
-            PlayerPrefs.SetFloat("BackGroundSliderValue", slider.value);
+            PlayerPrefs.SetFloat("MusicVolume", slider.value);
         else
-            PlayerPrefs.SetFloat("SoundEffectsSliderValue", slider.value);
+            PlayerPrefs.SetFloat("BackgroundVolume", slider.value);
     }
 }
